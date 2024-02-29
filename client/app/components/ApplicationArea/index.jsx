@@ -3,8 +3,6 @@ import routes from "@/services/routes";
 import Router from "./Router";
 import handleNavigationIntent from "./handleNavigationIntent";
 import ErrorMessage from "./ErrorMessage";
-import ChatBox from "@/components/chat/ChatBox";
-import DynamicComponent from "../DynamicComponent";
 
 export default function ApplicationArea() {
   const [currentRoute, setCurrentRoute] = useState(null);
@@ -42,28 +40,5 @@ export default function ApplicationArea() {
     return <ErrorMessage error={unhandledError} />;
   }
 
-     return (
-       <React.Fragment>
-         <DynamicComponent name="ApplicationWrapper">
-           <div className="application-layout-side-menu">
-             <DynamicComponent name="ApplicationDesktopNavbar">
-               <DesktopNavbar />
-             </DynamicComponent>
-           </div>
-           <div>
-             <DynamicComponent name="ApplicationDesktopChat">
-               <ChatBox/>
-             </DynamicComponent>
-           </div>
-           <div className="application-layout-content">
-             <nav className="application-layout-top-menu" ref={mobileNavbarContainerRef}>
-               <DynamicComponent name="ApplicationMobileNavbar" getPopupContainer={getMobileNavbarPopupContainer}>
-                 <MobileNavbar getPopupContainer={getMobileNavbarPopupContainer} />
-               </DynamicComponent>
-             </nav>
-             {children}
-           </div>
-         </DynamicComponent>
-       </React.Fragment>
-     );
+  return <Router routes={routes.items} onRouteChange={setCurrentRoute} />;
 }
